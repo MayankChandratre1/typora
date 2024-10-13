@@ -18,13 +18,47 @@ model User {
   username  String
   email String @unique
   password  String
+  about String @default("")
+  avatar_url String @default("https://res.cloudinary.com/dvsl1aslo/image/upload/c_thumb,w_200,g_face/v1727793532/Profile_avatar_placeholder_large_gmzpse.png")
   blogs Blog[]  @relation("blog-user-relation")
+  likes Like[] @relation("user-like-relation")
+  comments Comment[] @relation("user-comment-relation")
 }
 
 model Blog {
   id  String  @id @default(uuid())
   title  String
   content  String
-  authorId String @unique
+  authorId String 
   author  User  @relation("blog-user-relation",fields: [authorId], references: [id])
+  published Boolean @default(false)
+  publishedAt DateTime @default(now())
+  createdAt DateTime @default(now())
+  thumbnail_url String @default("")
+  tags Tag[] @relation("blog-tag-relation") 
+  likes Like[] @relation("blog-like-relation")
+  comments Comment[] @relation("blog-comment-relation")
+}
+
+model Tag {
+  id  String  @id @default(uuid())
+  name  String @unique
+  blogs Blog[] @relation("blog-tag-relation")
+}
+
+model Like {
+  id  String  @id @default(uuid())
+  blogId String
+  userId String
+  blog Blog @relation("blog-like-relation" ,fields: [blogId], references: [id])
+  user User @relation("user-like-relation",fields: [userId], references: [id])
+}
+model Comment {
+  id  String  @id @default(uuid())
+  blogId String
+  userId String
+  content String
+  createdAt DateTime @default(now())
+  blog Blog @relation("blog-comment-relation" ,fields: [blogId], references: [id])
+  user User @relation("user-comment-relation",fields: [userId], references: [id])
 }
