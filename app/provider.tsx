@@ -6,14 +6,17 @@ const Provider = ({children}:{
     children:React.ReactNode
 }) => {
   return (
-    <SessionProvider>
+    
       <>
       <NextThemesProvider attribute="class" defaultTheme="dark">
+        <SessionProvider>
+        
         {children}  
         <Toaster />
+        </SessionProvider>
       </NextThemesProvider>
       </>
-    </SessionProvider>
+    
   )
 }
 

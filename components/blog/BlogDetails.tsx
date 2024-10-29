@@ -10,7 +10,7 @@ import React, { useEffect, useState } from 'react'
 
 
 const BlogDetails = ({blog}:{
-    blog: BlogWithRelations | Blog
+    blog: BlogWithRelations
 }) => {
     const router = useRouter();
     const [author, setAuthor] = useState<string | null>(null);
@@ -43,6 +43,10 @@ const BlogDetails = ({blog}:{
               {blog.published
                 ? `${new Date(blog.publishedAt).toLocaleDateString()} : ${author}`
                 : `${new Date(blog.createdAt).toLocaleDateString()}`}
+            </span>
+            <span>
+              {blog.likes.length} Likes {". "}
+              {blog.comments.length} Comments
             </span>
           </div>
         </div>

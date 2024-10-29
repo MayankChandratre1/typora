@@ -23,6 +23,7 @@ const buttonVariants = cva(
         green: "bg-green-500/80 text-primary-foreground shadow hover:bg-green-500",
         gradient_black: "bg-gradient-to-tr from-black via-gray-700 to-gray-400 text-primary-foreground shadow hover:from-black hover:to-gray-500 dark:text-white",
         gradient_white: "bg-gradient-to-tr from-white via-gray-400 to-gray-200 text-primary-foreground shadow hover:to-gray-400 ",
+        gray:"bg-gray-700 text-primary-foreground shadow hover:bg-primary/90 dark:bg-gray-500 dark:text-white dark:hover:bg-gray-500", 
       },
       size: {
         default: "h-9 px-4 py-2",

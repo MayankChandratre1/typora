@@ -6,7 +6,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    
+   
       <div className="h-screen flex flex-col">
         <div className="px-10 flex items-center justify-between py-4">
           <h1 className="text-xl">typora</h1>

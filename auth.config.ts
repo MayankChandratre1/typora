@@ -16,8 +16,6 @@ export default {
                         if(isPasswordCorrect){
                             console.log("###AUTH:\n"+"USER SIGNED IN");
                             return user
-                        }else{
-                            return null
                         }
                     }
                 }
@@ -26,7 +24,7 @@ export default {
         },
     })],
     callbacks:{
-        session: async ({session, token})=>{
+        session: async ({session, token, user})=>{
             if(token.sub && session.user){
                 session.user.id = token.sub
             }
@@ -34,7 +32,8 @@ export default {
         },
         jwt: async ({token}) => {
             return token
-        }
+        },
+        
     }
 
 } satisfies NextAuthConfig

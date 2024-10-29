@@ -52,6 +52,8 @@ model Like {
   userId String
   blog Blog @relation("blog-like-relation" ,fields: [blogId], references: [id])
   user User @relation("user-like-relation",fields: [userId], references: [id])
+
+  @@unique([blogId, userId])
 }
 model Comment {
   id  String  @id @default(uuid())

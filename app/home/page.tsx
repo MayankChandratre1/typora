@@ -1,10 +1,6 @@
 "use client"
 import BlogCard from '@/components/blog/BlogCard'
-import ImageUploadButton from '@/components/cloudinary/ImageUploadButton'
-import ImageUploadWidget from '@/components/cloudinary/ImageUploadWidget'
-import { Button } from '@/components/ui/button'
 import { useBlogs } from '@/lib/hooks/blog/useBlog'
-import markdownToHtml from '@/lib/markdown/markdownToHtml'
 import React, { useState } from 'react'
 
 const HomePage = () => {
@@ -23,6 +19,7 @@ const HomePage = () => {
         {
           !loading && !blogs.length && <p>No blogs found</p>
         }
+        {/* <ShareModal onClose={()=>(5)} /> */}
     </div>
   )
 }

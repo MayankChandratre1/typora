@@ -61,10 +61,34 @@ export const getBlogById = async (id: string) => {
             where:{
                 id
             },
-            include:{
-                likes:true,
-                comments:true,
-                tags:true
+            select:{
+                id:true,
+                title:true,
+                content:true,
+                published:true,
+                publishedAt:true,
+                authorId:true,
+                createdAt:true,
+                thumbnail_url:true,
+                likes:{
+                    select:{
+                        id:true,
+                        userId:true
+                    }
+                },
+                comments:{
+                    select:{
+                        id:true,
+                        content:true,
+                        userId:true
+                    }
+                },
+                tags:{
+                    select:{
+                        id:true,
+                        name:true
+                    }
+                }
             }
         })
         if(blog){
@@ -89,10 +113,34 @@ export const getAllPublishedBlogs = async () => {
             where:{
                 published: true,
             },
-            include:{
-                likes:true,
-                comments:true,
-                tags:true
+            select:{
+                id:true,
+                title:true,
+                content:true,
+                published:true,
+                publishedAt:true,
+                authorId:true,
+                createdAt:true,
+                thumbnail_url:true,
+                likes:{
+                    select:{
+                        id:true,
+                        userId:true
+                    }
+                },
+                comments:{
+                    select:{
+                        id:true,
+                        content:true,
+                        userId:true
+                    }
+                },
+                tags:{
+                    select:{
+                        id:true,
+                        name:true
+                    }
+                }
             }
         })
         if(blogs){
@@ -117,10 +165,34 @@ export const getBlogsByAuthorId = async (authorId: string) => {
             where:{
                 authorId
             },
-            include:{
-                likes:true,
-                comments:true,
-                tags:true
+            select:{
+                id:true,
+                title:true,
+                content:true,
+                published:true,
+                publishedAt:true,
+                authorId:true,
+                createdAt:true,
+                thumbnail_url:true,
+                likes:{
+                    select:{
+                        id:true,
+                        userId:true
+                    }
+                },
+                comments:{
+                    select:{
+                        id:true,
+                        content:true,
+                        userId:true
+                    }
+                },
+                tags:{
+                    select:{
+                        id:true,
+                        name:true
+                    }
+                }
             }
         })
         if(blogs){
@@ -150,10 +222,34 @@ export const getBlogsByTagId = async (tagId: string)=>{
                 },
                 published: true
             },
-            include:{
-                likes:true,
-                comments:true,
-                tags:true
+            select:{
+                id:true,
+                title:true,
+                content:true,
+                published:true,
+                publishedAt:true,
+                authorId:true,
+                createdAt:true,
+                thumbnail_url:true,
+                likes:{
+                    select:{
+                        id:true,
+                        userId:true
+                    }
+                },
+                comments:{
+                    select:{
+                        id:true,
+                        content:true,
+                        userId:true
+                    }
+                },
+                tags:{
+                    select:{
+                        id:true,
+                        name:true
+                    }
+                }
             }
         })
         if(blogs){

@@ -63,4 +63,10 @@
   body {
     @apply bg-background text-foreground;
   }
+  .vertical-interactions {
+    @apply fixed right-3 top-[40%] flex flex-col gap-1 bg-gray-200 dark:bg-gray-900/50 shadow-md rounded-xl w-12;
+  }
+  .horizontal-interactions {
+    @apply flex justify-evenly my-2 w-1/2 rounded-xl;
+  }
 }

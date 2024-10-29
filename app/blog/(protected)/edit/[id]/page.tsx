@@ -8,7 +8,7 @@ import { useBlogs } from '@/lib/hooks/blog/useBlog'
 import markdownToHtml from '@/lib/markdown/markdownToHtml'
 import React, { useEffect, useState } from 'react'
 
-const BlogPage = ({ params }: { 
+const EditBlogPage = ({ params }: { 
     params: { id: string }
  }) => {
   const {blogs , loading, error} = useBlogs("ByBlogId", params.id);
@@ -57,4 +57,4 @@ const BlogPage = ({ params }: {
   )
 }
 
-export default BlogPage
+export default EditBlogPage

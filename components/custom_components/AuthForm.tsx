@@ -45,11 +45,10 @@ const AuthForm = ({mode}:{
             setError(validate_result.error.errors[0].path+": "+validate_result.error.errors[0].message)
             return
         }
-        await SignIn({
+        const result = await SignIn({
             email: userInfo.email || "No email",
             password: userInfo.password || "No Password"
         });
-        router.replace(DEFAULT_AUTH_REDIRECT)
     }else{
         const validate_result = SignupInputSchema.safeParse(userInfo)
         if(!validate_result.success){

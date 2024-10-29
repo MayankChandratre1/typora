@@ -12,8 +12,11 @@ export const SignIn = async (userInfo:SigninInput) => {
         const res = await signIn("credentials",{
             email,
             password,
-            redirect:false
+            redirectTo: DEFAULT_AUTH_REDIRECT
         });
+        return {
+            success: true,
+        }
     }catch(error){
         throw error
     }
@@ -35,11 +38,11 @@ export const SignUp = async (userInfo:SignupInput) => {
                 password: await hashPassword(password)
             }
         })
-        await SignIn({
+        const res = await SignIn({
             email: userInfo.email || "No email",
             password: userInfo.password || "No Password"
         });
-        if(user){
+        if(user && res.success){
             return {
                 success: true,
                 id: user.id

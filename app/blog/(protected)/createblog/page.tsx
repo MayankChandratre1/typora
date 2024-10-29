@@ -88,20 +88,20 @@ const handleHeader = (level: number) => {
       description: "Your blog has been published successfully"
     })
     // Add your publish logic here
-    // try {
-    //   if(blogId){
-    //     await publishBlog(blogId);
-    //   }else{
-    //     const blogId = await handleSaveAsDraft();
-    //     if(blogId)
-    //       await publishBlog(blogId);
-    //   }
-    //   clearStorage()
+    try {
+      if(blogId){
+        await publishBlog(blogId);
+      }else{
+        const blogId = await handleSaveAsDraft();
+        if(blogId)
+          await publishBlog(blogId);
+      }
+      clearStorage()
       
-    // } catch (error) {
-    //   console.error(error)
-    // }
-    // console.log('Publishing Blog:', { title, content });
+    } catch (error) {
+      console.error(error)
+    }
+    console.log('Publishing Blog:', { title, content });
   };
 
   const handleSaveAsDraft = async () => {
@@ -110,7 +110,6 @@ const handleHeader = (level: number) => {
         const res = await saveBlog({title, content, authorId: session.data?.user?.id})
         if(res && res.success){
           setBlogId(res.blogId)
-          alert('Blog saved as draft')
           return res.blogId
         }
       }
