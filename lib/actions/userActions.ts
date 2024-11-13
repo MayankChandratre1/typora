@@ -1,6 +1,5 @@
 "use server"
 
-import { auth } from "@/auth";
 import { prisma, User } from "../db/prisma";
 
 export const getUserByEmail = async (email: string) =>{

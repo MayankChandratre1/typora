@@ -1,4 +1,4 @@
-import { Blog, Like, Tag } from "@prisma/client"
+import { Blog } from "@prisma/client"
 
 export type BlogWithRelations = {
     likes:  {

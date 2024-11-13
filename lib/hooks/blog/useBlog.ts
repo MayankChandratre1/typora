@@ -7,7 +7,7 @@ import {
   getBlogsByTagId,
 } from "@/lib/actions/blogActions";
 import { BlogWithRelations } from "@/lib/types/blogTypes";
-import { Blog } from "@prisma/client";
+
 import { useEffect, useState } from "react";
 
 export const useBlogs = (
@@ -36,6 +36,8 @@ export const useBlogs = (
           setBlogs(response.blogs);
         }
       } catch (err) {
+        console.log(err);
+        
         setError("Error fetching blogs");
       } finally {
         setLoading(false);

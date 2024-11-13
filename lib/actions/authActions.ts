@@ -1,5 +1,5 @@
 "use server"
-import { auth, signIn } from "@/auth";
+import { signIn } from "@/auth";
 import { SigninInput, SignupInput } from "../types/authTypes";
 import { getUserByEmail } from "./userActions";
 import { prisma } from "../db/prisma";
@@ -9,7 +9,7 @@ import { DEFAULT_AUTH_REDIRECT } from "@/route";
 export const SignIn = async (userInfo:SigninInput) => {
     try{
         const { email , password } = userInfo
-        const res = await signIn("credentials",{
+         await signIn("credentials",{
             email,
             password,
             redirectTo: DEFAULT_AUTH_REDIRECT

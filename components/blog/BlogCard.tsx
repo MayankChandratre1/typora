@@ -1,11 +1,11 @@
 import { getUserById } from '@/lib/actions/userActions';
-import markdownToHtml from '@/lib/markdown/markdownToHtml';
+
 import { BlogWithRelations } from '@/lib/types/blogTypes';
-import { Blog } from '@prisma/client'
-import Image from 'next/image';
+
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 import { Button } from '../ui/button';
+import Image from 'next/image';
 
 const BlogCard = ({blog}:{
     blog: BlogWithRelations
@@ -18,16 +18,14 @@ const BlogCard = ({blog}:{
             setAuthor(response.user.username);
           }
         })
-    },[])
+    },[blog.authorId])
     
     const handleClick = () => {
       router.push(`/blog/${blog.id}`);
     };
 
     
-    useEffect(() => {
-        
-    },[])
+  
     return (
         <div
         onClick={handleClick}
@@ -35,10 +33,12 @@ const BlogCard = ({blog}:{
       >
        {
         blog.thumbnail_url && (
-          <img
+          <Image
           src={blog.thumbnail_url}
           alt={blog.title}
           className="w-full  object-cover object-top"
+          width={500}
+          height={300}
         />
         )
        }

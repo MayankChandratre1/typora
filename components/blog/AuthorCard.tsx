@@ -2,7 +2,7 @@ import { useAuthor } from '@/lib/hooks/users/useAuthor';
 import React from 'react'
 import UserAvatar from '../custom_components/Avatar';
 import Link from 'next/link';
-import ThumbsUp from '../icons/ThumbsUp';
+
 
 const AuthorCard = ({authorId}:{
     authorId: string

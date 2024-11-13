@@ -1,22 +1,17 @@
 "use client"
-import React, { use, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ThemeButton from '../ThemeButton'
 import { Button } from '@/components/ui/button'
-import { set } from 'zod'
-import { useRouter } from 'next/navigation'
+
+
 import Link from 'next/link'
 import { useSession } from 'next-auth/react'
-import { User } from '@prisma/client'
-import { useAuthor } from '@/lib/hooks/users/useAuthor'
+
 import MyProfileButton from './MyProfileButton'
 import SearchBar from '../SearchBar'
 
-const Navbar = ({userId}:{
-  userId:string
-}) => {
+const Navbar = () => {
   const [showMenu, setShowMenu] = useState(false)
-  const router = useRouter()
-  const user = useAuthor(userId);
   const {data, status} = useSession()
   
 
@@ -25,9 +20,7 @@ const Navbar = ({userId}:{
   },[status])
 
  
-  const changeRoute = (route: string) => {
-    router.replace(route)
-  }
+  
 
  
   
@@ -40,7 +33,7 @@ const Navbar = ({userId}:{
           </div>
           <div className='flex gap-3'>
             <Link href={"/blog/createblog"}><Button className='hidden lg:block' variant={"link"}>Create Blog</Button></Link>
-            <MyProfileButton userId={data?.user?.id || "XYZ"}/>
+            <MyProfileButton />
             <Button className='lg:hidden block' variant={"link"} onClick={()=>{
                 setShowMenu(true)
             }}>Menu</Button>

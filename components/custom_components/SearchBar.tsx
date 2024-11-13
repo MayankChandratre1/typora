@@ -1,17 +1,17 @@
 "use client"
 import React from 'react'
 import { Input } from '../ui/input'
-import MagnifyingGlass from '../icons/MagnifyingGlass'
+
 import { getBlogByName } from '@/lib/actions/blogActions'
-import BlogCard from '../blog/BlogCard'
+
 import { BlogWithRelations } from '@/lib/types/blogTypes'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { set } from 'zod'
+
 
 const SearchBar = () => {
   const [search, setSearch] = React.useState('')
-  const [results, setResults] = React.useState<any[]>([])
+  const [results, setResults] = React.useState<BlogWithRelations[]>([])
   const [loading, setLoading] = React.useState(false)
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value)

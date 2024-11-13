@@ -1,12 +1,10 @@
 "use client"
-import BlogCard from '@/components/blog/BlogCard'
 import BlogDetails from '@/components/blog/BlogDetails'
-import BlogView from '@/components/blog/BlogPreview'
+
 import ReadBlogView from '@/components/blog/ReadBlogView'
-import { getBlogById } from '@/lib/actions/blogActions'
 import { useBlogs } from '@/lib/hooks/blog/useBlog'
 import markdownToHtml from '@/lib/markdown/markdownToHtml'
-import React, { use, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 const BlogPage = ({ params }: { 
     params: { id: string }

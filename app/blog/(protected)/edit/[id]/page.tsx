@@ -1,12 +1,10 @@
 "use client"
+
 import BlogView from '@/components/blog/BlogPreview';
 import Toolbar from '@/components/blog/ToolBar';
 import { Button } from '@/components/ui/button';
-import { publishBlog, saveBlog } from '@/lib/actions/blogActions';
-import markdownToHtml from '@/lib/markdown/markdownToHtml';
-import { useSession } from 'next-auth/react';
-import React, { useEffect, useState } from 'react';
-import { toast, useToast } from "@/hooks/use-toast"
+
+import React from 'react';
 import useEditor from '@/lib/hooks/blog/useEditor';
 import Loader from '@/components/custom_components/Loading';
 import CenterText from '@/components/custom_components/CenterText';
@@ -24,9 +22,7 @@ export default function EditBlogPage({ params }: {
     onChangeTitle,
     onChangeContent,
     changeToPreview,
-    handleSaveAsDraft,
     handleEditPubslish,
-    handlePublish,
     handleEditSave,
     handleUnpublish,
     handleBold,

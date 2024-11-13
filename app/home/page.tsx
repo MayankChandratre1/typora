@@ -1,7 +1,7 @@
 "use client"
 import BlogCard from '@/components/blog/BlogCard'
 import { useBlogs } from '@/lib/hooks/blog/useBlog'
-import React, { useState } from 'react'
+import React from 'react'
 
 const HomePage = () => {
   const {blogs, loading, error} = useBlogs('All')

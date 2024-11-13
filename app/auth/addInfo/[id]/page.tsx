@@ -1,11 +1,11 @@
 "use client"
 import ImageUploadWidget from '@/components/cloudinary/ImageUploadWidget'
 import { Button } from '@/components/ui/button'
-import { getUserByEmail, getUserById, updateUserById } from '@/lib/actions/userActions'
+import { getUserById, updateUserById } from '@/lib/actions/userActions'
 import { User } from '@prisma/client'
 import { CloudinaryUploadWidgetInfo } from 'next-cloudinary'
 import Image from 'next/image'
-import { useSearchParams } from 'next/navigation'
+
 import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 
@@ -24,7 +24,7 @@ const AddInfoPage = ({ params }: {
             ...data.user
           })
         })
-    },[])
+    },[params.id])
 
     const addAvatarAndAbout = async () => {
       if(about){
@@ -46,6 +46,8 @@ const AddInfoPage = ({ params }: {
         <div className='text-2xl mb-3'>
           Welcome, <span className='font-bold'>{user.username} </span> 
         </div>
+
+        { error && <div className='text-red-500'>{error}</div>}
 
         <div className='h-full grid grid-cols-1 lg:grid-cols-2 py-10'>
           <div>

@@ -1,7 +1,7 @@
 import { PrismaClient, User, Blog } from "@prisma/client";
 
 declare module globalThis {
-    var prisma: PrismaClient
+    let prisma: PrismaClient
 } 
 
 export const prisma = globalThis.prisma || new PrismaClient()

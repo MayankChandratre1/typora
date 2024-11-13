@@ -1,9 +1,10 @@
 import { BlogWithRelations } from '@/lib/types/blogTypes'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Button } from '../ui/button'
 import TrashIcon from '../icons/TrashIcon';
-import { deleteComment } from '@/lib/actions/commentActions';
+
 import useAuthSession from '@/lib/hooks/users/useAuthSession';
+import Image from 'next/image';
 
 const Comments = ({blog, comments, handleDelete}:{
     blog?: BlogWithRelations,
@@ -25,7 +26,7 @@ const Comments = ({blog, comments, handleDelete}:{
     <div>
         <div className="text-xl font-bold my-3">Comments{" "}<span className='text-gray-400 text-xs'>({comments.length})</span></div>
         {comments.map(comment => (
-            <CommentCard handleDelete={handleDelete} isAuthorOrUser={
+            <CommentCard key={comment.id} handleDelete={handleDelete} isAuthorOrUser={
                 blog?.authorId === comment.userId || session?.user?.id === comment.userId
             } comment={comment} />
         ))}
@@ -51,7 +52,7 @@ const CommentCard = ({comment , isAuthorOrUser, handleDelete}:{ comment: {
         <div key={comment.id} className="border-2 rounded-xl my-1 px-4 py-2">
             <div className='flex justify-between'>
             <div className='flex gap-2 items-center'>
-                <img src={comment.user.avatar_url} className="h-5 w-5 rounded-full object-cover" />
+                <Image width={100} height={100} alt='comment' src={comment.user.avatar_url} className="h-5 w-5 rounded-full object-cover" />
                 <span className="font-semibold">{comment.user.username}</span>
                 <div className='text-xs text-gray-500'>{comment.createdAt.toDateString()}</div>
             </div>

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 
 const useAuthSession =  () =>{
     const [session, setSession] = useState<Session | null>(null)
-    const [loading, setLoading] = useState<Boolean>(true)
+    const [loading, setLoading] = useState<boolean>(true)
 
     useEffect(()=>{
         fetch("/api/auth/session").then(res=>res.json()).then(data=>{

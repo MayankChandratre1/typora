@@ -32,7 +32,7 @@ export default function RootLayout({
       >
         <Provider>
           <div className="fixed w-full -z-50 opacity-20 bottom-0">
-            <Wave size="large" color="black" /> 
+            <Wave  /> 
           </div>
          {children}
         </Provider>

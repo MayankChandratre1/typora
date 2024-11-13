@@ -3,20 +3,19 @@ import Link from 'next/link'
 import React, { useState } from 'react'
 import { Input } from "@/components/ui/input"
 import { Button } from '../ui/button'
-import { User } from 'next-auth'
-import { AuthUserType, SigninInput, SigninInputSchema, SignupInput, SignupInputSchema} from '@/lib/types/authTypes'
-import z from "zod"
+
+import {  SigninInputSchema, SignupInput, SignupInputSchema} from '@/lib/types/authTypes'
+
 import { SignIn, SignUp } from '@/lib/actions/authActions'
 import { useRouter } from 'next/navigation'
-import { DEFAULT_AUTH_REDIRECT } from '@/route'
-import { log } from 'console'
+
 
 const AuthForm = ({mode}:{
     mode: "signin" | "signup"
 }) => {
   
   const [showPassword, setShowPassword] = useState<boolean>(false)
-  const [isPasswordConfirmed, setIsPasswordConfirmed] = useState<boolean>(false)
+ 
   const [error, setError] = useState("")
   const router = useRouter()
   const [userInfo, setUserInfo] = useState<Partial<SignupInput>>({
@@ -26,9 +25,7 @@ const AuthForm = ({mode}:{
     confirmpassword:""
   })
 
-  const confirmPassword = () => {
-        setIsPasswordConfirmed(userInfo.password === userInfo.confirmpassword)
-  }
+  
 
   const onChange = (value:string,name:string) => {
     const newUserInfo = {...userInfo}
@@ -45,7 +42,7 @@ const AuthForm = ({mode}:{
             setError(validate_result.error.errors[0].path+": "+validate_result.error.errors[0].message)
             return
         }
-        const result = await SignIn({
+      await SignIn({
             email: userInfo.email || "No email",
             password: userInfo.password || "No Password"
         });
@@ -153,7 +150,7 @@ const AuthForm = ({mode}:{
                     mode === 'signin' ? '/auth/signup' : '/auth/signin'
                 } className='underline text-xs '>
                     {mode === 'signin' ? 
-                    <p>Don't have an Account? SignUp</p> : 
+                    <p>Don&apos;t have an Account? SignUp</p> : 
                     <p>Already have an Account? SignIn</p>}
                 </Link>
         </div>   

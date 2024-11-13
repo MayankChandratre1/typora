@@ -2,7 +2,7 @@
 import BlogCard from '@/components/blog/BlogCard';
 import { getBlogsByTagId } from '@/lib/actions/blogActions';
 import { getTagById } from '@/lib/actions/tagActions';
-import markdownToHtml from '@/lib/markdown/markdownToHtml'
+
 import { BlogWithRelations } from '@/lib/types/blogTypes';
 import React, { useEffect, useState } from 'react'
 
@@ -27,6 +27,8 @@ const TagPage = ({ params }: {
             } catch (error) {
                 setError("An error occurred while fetching the blogs");
                 setLoading(false);
+                console.log(error);
+                
             }
         }
         fetchBlogs();
@@ -42,6 +44,8 @@ const TagPage = ({ params }: {
                 }
                 setLoading(false);
             } catch (error) {
+                console.log(error);
+                
                 setError("An error occurred while fetching the tag");
                 setLoading(false);
             }
@@ -63,7 +67,7 @@ const TagPage = ({ params }: {
                 {tag}
             </div>
             {blogs.map(blog => (
-                <BlogCard blog={blog} />
+                <BlogCard key={blog.id} blog={blog} />
             ))}
         </div>
     )

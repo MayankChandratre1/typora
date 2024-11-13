@@ -1,13 +1,13 @@
 import { useBlogs } from '@/lib/hooks/blog/useBlog';
-import React, { useEffect } from 'react'
-import BlogCard from '../blog/BlogCard';
+import React from 'react'
+
 import BlogDetails from '../blog/BlogDetails';
-import Link from 'next/link';
+
 
 const UserBlogs = ({userId}:{
     userId: string
 }) => {
-    const {blogs, loading, error} = useBlogs("ByAuthorId", userId);
+    const {blogs, loading } = useBlogs("ByAuthorId", userId);
 
   if(loading){
       return <div>Loading...</div>

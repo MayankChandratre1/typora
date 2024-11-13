@@ -1,12 +1,12 @@
 import { toast } from "@/hooks/use-toast";
 import { getBlogById, publishBlog, saveBlog, updateBlog } from "@/lib/actions/blogActions";
 import markdownToHtml from "@/lib/markdown/markdownToHtml";
-import { get } from "http";
-import { useSession } from "next-auth/react";
+
+
 import { useEffect, useState } from "react";
-import { set } from "zod";
+
 import useAuthSession from "../users/useAuthSession";
-import { useRouter } from "next/navigation";
+
 
 const useEditor = (id?:string) => {
   const [title, setTitle] = useState("");
@@ -15,7 +15,7 @@ const useEditor = (id?:string) => {
   const [html, setHtml] = useState("");
   const [blogId, setBlogId] = useState<string | undefined>(id);
   const [notAuthor, setNotAuthor] = useState(false);
-  const {session, loading} = useAuthSession();
+  const {session} = useAuthSession();
   
 
   useEffect(() => {
@@ -56,7 +56,7 @@ const useEditor = (id?:string) => {
       setHtml(newHtml);
     };
     generatePreview();
-  }, [preview]);
+  }, [preview, content]);
 
   const changeToPreview = () => {
     setPreview(!preview);

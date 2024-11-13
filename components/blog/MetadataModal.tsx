@@ -8,7 +8,7 @@ import { addTagToBlog, createTag } from "@/lib/actions/tagActions";
 import { updateBlog } from "@/lib/actions/blogActions";
 import { toast } from "@/hooks/use-toast";
 
-const MetadataModal = ({ close, blogId, publish }: { close: () => void, blogId:string, publish: ()=>Promise<string | undefined> }) => {
+const MetadataModal = ({ close, publish }: { close: () => void, publish: ()=>Promise<string | undefined> }) => {
   const [tags, setTags] = React.useState<string[]>([]);
   const [thumbnail, setThumbnail] = React.useState<string | null>(null);
   const [tagIds, setTagIds] = React.useState<string[]>([]);
@@ -25,7 +25,7 @@ const MetadataModal = ({ close, blogId, publish }: { close: () => void, blogId:s
   const createTags = async () => {
     const results = await Promise.all(
       tags.map(async (tag) => {
-        const { success, tagId } = await createTag(tag);
+        const { tagId } = await createTag(tag);
         return  tagId ? tagId : null;
       })
     );
@@ -37,7 +37,7 @@ const MetadataModal = ({ close, blogId, publish }: { close: () => void, blogId:s
     console.log("### Adding tags to blog: ", tagIds);
     
     
-    const results = await Promise.all(
+   await Promise.all(
       tagIds.map(async (tagId) => {
         console.log("### Adding tag to blog: ", tagId);
         
@@ -94,6 +94,7 @@ const MetadataModal = ({ close, blogId, publish }: { close: () => void, blogId:s
         <div id="tags" className="my-2">
           {tags.map((tag) => (
             <TagPreview
+              key={tag}
               removeTag={() => {
                 setTags(tags.filter((t) => t !== tag));
               }}

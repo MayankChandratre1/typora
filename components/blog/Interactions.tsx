@@ -5,13 +5,11 @@ import ThumbsUp from '../icons/ThumbsUp'
 import CommentIcon from '../icons/CommentIcon'
 import ShareIcon from '../icons/ShareIcon'
 import { BlogWithRelations } from '@/lib/types/blogTypes'
-import { Blog } from '@prisma/client'
+
 import ShareModal from '../custom_components/ShareModal'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname} from 'next/navigation'
 import { dislikeBlogById, likeBlogById } from '@/lib/actions/interactionsActions'
-import { useSession } from 'next-auth/react'
-import { set } from 'zod'
-import { getUserByEmail } from '@/lib/actions/userActions'
+
 import useAuthSession from '@/lib/hooks/users/useAuthSession'
 
 const Interactions = ({blog}:{
@@ -34,6 +32,8 @@ const Interactions = ({blog}:{
     if(liked){
         setIsLiked(true)
     }
+
+    setCommentCount(blog.comments.length)
         
   },[blog, session])
 

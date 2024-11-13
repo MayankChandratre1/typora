@@ -1,7 +1,7 @@
 "use server"
 
 import { prisma } from "../db/prisma";
-import {  getUserByEmail, getUserById } from "./userActions";
+import {  getUserByEmail } from "./userActions";
 
 export const likeBlogById = async (id: string, userEmail:string) => {
     try{

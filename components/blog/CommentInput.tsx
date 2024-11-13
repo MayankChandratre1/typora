@@ -4,7 +4,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { addComment } from "@/lib/actions/commentActions";
 import useAuthSession from "@/lib/hooks/users/useAuthSession";
 import { useState } from "react";
-import { set } from "zod";
+
 
 function CommentInput({ blogId, handleAddComment }: { blogId: string, handleAddComment: (comment: {
   id: string;
@@ -41,6 +41,9 @@ function CommentInput({ blogId, handleAddComment }: { blogId: string, handleAddC
   return (
     <div className="grid gap-2 w-1/2">
       <Textarea placeholder="Type your message here." className="h-8 max-h-32 overflow-y-auto" onChange={handleChange} value={comment}  />
+      {
+        error && <div className="text-red-500 bg-transparent">{error}</div>
+      }
       <Button variant={"gray"} onClick={handleSubmit}>{
         loading ? "Loading..." : "Add Comment"
         }</Button>

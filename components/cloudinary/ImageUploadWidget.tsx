@@ -15,12 +15,14 @@ const ImageUploadWidget = ({setUrl}:{
     <CldUploadWidget
     options={{ sources: ['local', 'url'] }}
     uploadPreset="typora_preset"
-  onSuccess={(result, { widget }) => {
+  onSuccess={(result, { }) => {
     console.log("###CLOUDINARY:\n"+JSON.stringify(result));
     if(result.info)
         setResource(result?.info);
     if(typeof result.info !== "string"){
         setUrl(result.info?.url)
+        console.log(resource);
+        
     }  // { public_id, secure_url, etc }
   }}
   onError={(err)=>{

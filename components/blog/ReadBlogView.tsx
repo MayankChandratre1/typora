@@ -1,7 +1,6 @@
 import { BlogWithRelations } from "@/lib/types/blogTypes";
-import React, { useEffect } from "react";
+import React from "react";
 import AuthorCard from "./AuthorCard";
-import { Blog } from "@prisma/client";
 import Interactions from "./Interactions";
 import CommentInput from "./CommentInput";
 import Comments from "./Comments";

@@ -1,4 +1,4 @@
-const ShareIcon = ({ size, color}:{
+const ShareIcon = ({ size}:{
     size: "large" | "small",
     color?: string,
 }) => {

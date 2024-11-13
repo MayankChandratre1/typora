@@ -1,9 +1,6 @@
 import { getUserById } from '@/lib/actions/userActions';
-import markdownToHtml from '@/lib/markdown/markdownToHtml';
+
 import { BlogWithRelations } from '@/lib/types/blogTypes';
-import { Blog, Comment, Like, Tag } from '@prisma/client'
-import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 import { Button } from '../ui/button';
 import TrashIcon from '../icons/TrashIcon';
@@ -20,7 +17,6 @@ const BlogDetails = ({blog, isMyprofile}:{
     blog: BlogWithRelations,
     isMyprofile:boolean
 }) => {
-    const router = useRouter();
     const [author, setAuthor] = useState<string | null>(null);
     const [deleted, setDeleted] = useState(false);
     useEffect(() => {
@@ -29,7 +25,7 @@ const BlogDetails = ({blog, isMyprofile}:{
             setAuthor(response.user.username);
           }
         })
-    },[deleted])
+    },[deleted, blog.authorId])
 
     
     
