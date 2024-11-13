@@ -75,3 +75,33 @@ export const updateUserById = async (id: string, data:Partial<User>) => {
     }
 }
 
+// export const getCurrentUserInfo = async () => {
+//     try{
+//         const currentUserEmail = (await auth())?.user?.email
+//         if(!currentUserEmail){
+//             return {
+//                 success: false,
+//                 user: null
+//             }
+//         }
+//         const user = await prisma.user.findUnique({
+//             where:{
+//                 email: currentUserEmail
+//             }
+//         })
+//         if(user){
+//             return {
+//                 success: true,
+//                 user: user
+//             }
+//         }else{
+//             return {
+//                 success: false,
+//                 user: null
+//             }
+//         }
+//     }catch(error){
+//         console.error("###getCurrentUserInfo: \n"+ JSON.stringify(error));
+//         throw error
+//     }
+// }

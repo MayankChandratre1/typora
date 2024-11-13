@@ -10,7 +10,7 @@ const UserAvatar = ({
   return (
     <div>
         <Avatar>
-            <AvatarImage src={avatar_url} />
+            <AvatarImage src={avatar_url} width={100} height={100} className='object-cover' />
             <AvatarFallback>{username.toUpperCase().charAt(0)}</AvatarFallback>
         </Avatar>
     </div>

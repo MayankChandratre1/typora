@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import Provider from "./provider";
+import Wave from "@/components/icons/Wave";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -30,6 +31,9 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Provider>
+          <div className="fixed w-full -z-50 opacity-20 bottom-0">
+            <Wave size="large" color="black" /> 
+          </div>
          {children}
         </Provider>
       </body>

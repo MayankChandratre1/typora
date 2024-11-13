@@ -57,7 +57,36 @@ module.exports = {
   				'4': 'hsl(var(--chart-4))',
   				'5': 'hsl(var(--chart-5))'
   			}
-  		}
+  		},
+		  typography: (theme) => ({
+			DEFAULT: {
+			  css: {
+				color: theme('colors.gray.800'), // Normal text color for light mode
+			  },
+			},
+			dark: {
+			  css: {
+				color: theme('colors.gray.100'), // Lighten text color for dark mode
+				'[class~="lead"]': { color: theme('colors.gray.200') },
+				a: { color: theme('colors.blue.400') },
+				strong: { color: theme('colors.gray.100') },
+				'ol > li::before': { color: theme('colors.gray.400') },
+				'ul > li::before': { backgroundColor: theme('colors.gray.600') },
+				hr: { borderColor: theme('colors.gray.700') },
+				blockquote: {
+				  color: theme('colors.gray.100'),
+				  borderLeftColor: theme('colors.gray.700'),
+				},
+				h1: { color: theme('colors.gray.100') },
+				h2: { color: theme('colors.gray.100') },
+				h3: { color: theme('colors.gray.100') },
+				h4: { color: theme('colors.gray.100') },
+				code: { color: theme('colors.gray.100'), backgroundColor: theme('colors.gray.800') },
+				h5: { color: theme('colors.gray.100') },
+				h6: { color: theme('colors.gray.100') },
+			  },
+			},
+		  }),
   	}
   },
   plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],

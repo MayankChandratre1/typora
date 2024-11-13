@@ -38,6 +38,8 @@ model Blog {
   tags Tag[] @relation("blog-tag-relation") 
   likes Like[] @relation("blog-like-relation")
   comments Comment[] @relation("blog-comment-relation")
+
+  
 }
 
 model Tag {
@@ -50,8 +52,10 @@ model Like {
   id  String  @id @default(uuid())
   blogId String
   userId String
-  blog Blog @relation("blog-like-relation" ,fields: [blogId], references: [id])
+  blog Blog @relation("blog-like-relation" ,fields: [blogId], references: [id], onDelete: Cascade)
   user User @relation("user-like-relation",fields: [userId], references: [id])
+
+  @@unique([blogId, userId])
 }
 model Comment {
   id  String  @id @default(uuid())
@@ -59,6 +63,6 @@ model Comment {
   userId String
   content String
   createdAt DateTime @default(now())
-  blog Blog @relation("blog-comment-relation" ,fields: [blogId], references: [id])
+  blog Blog @relation("blog-comment-relation" ,fields: [blogId], references: [id], onDelete: Cascade)
   user User @relation("user-comment-relation",fields: [userId], references: [id])
 }

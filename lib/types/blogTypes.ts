@@ -3,12 +3,20 @@ import { Blog, Like, Tag } from "@prisma/client"
 export type BlogWithRelations = {
     likes:  {
         id: string;
-        blogId: string;
         userId: string;
     }[],
-    comments: Comment[],
-    tags:  {
-        name: string;
+    comments: {
         id: string;
-    }[]
+        content: string;
+        userId: string;
+        user:{
+            username: string;
+            avatar_url: string;
+        },
+        createdAt: Date;
+    }[],
+    tags:  {
+        id: string;
+        name: string;
+    }[],
 } & Blog

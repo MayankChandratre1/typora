@@ -1,0 +1,1 @@
+export const BASE_APP_URL = process.env.BASE_APP_URL || 'http://localhost:3000'

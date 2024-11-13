@@ -6,6 +6,7 @@ import {
   getBlogsByAuthorId,
   getBlogsByTagId,
 } from "@/lib/actions/blogActions";
+import { BlogWithRelations } from "@/lib/types/blogTypes";
 import { Blog } from "@prisma/client";
 import { useEffect, useState } from "react";
 
@@ -13,7 +14,7 @@ export const useBlogs = (
   type: "All" | "ByBlogId" | "ByAuthorId" | "ByTagId",
   value?: string
 ) => {
-  const [blogs, setBlogs] = useState<Blog[]>([]);
+  const [blogs, setBlogs] = useState<BlogWithRelations[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 

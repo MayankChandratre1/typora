@@ -61,10 +61,41 @@ export const getBlogById = async (id: string) => {
             where:{
                 id
             },
-            include:{
-                likes:true,
-                comments:true,
-                tags:true
+            select:{
+                id:true,
+                title:true,
+                content:true,
+                published:true,
+                publishedAt:true,
+                authorId:true,
+                createdAt:true,
+                thumbnail_url:true,
+                likes:{
+                    select:{
+                        id:true,
+                        userId:true
+                    }
+                },
+                comments:{
+                    select:{
+                        id:true,
+                        content:true,
+                        userId:true,
+                        createdAt:true,
+                        user:{
+                            select:{
+                                username:true,
+                                avatar_url:true
+                            }
+                        }
+                    }
+                },
+                tags:{
+                    select:{
+                        id:true,
+                        name:true
+                    }
+                }
             }
         })
         if(blog){
@@ -89,10 +120,41 @@ export const getAllPublishedBlogs = async () => {
             where:{
                 published: true,
             },
-            include:{
-                likes:true,
-                comments:true,
-                tags:true
+            select:{
+                id:true,
+                title:true,
+                content:true,
+                published:true,
+                publishedAt:true,
+                authorId:true,
+                createdAt:true,
+                thumbnail_url:true,
+                likes:{
+                    select:{
+                        id:true,
+                        userId:true
+                    }
+                },
+                comments:{
+                    select:{
+                        id:true,
+                        content:true,
+                        userId:true,
+                        createdAt:true,
+                        user:{
+                            select:{
+                                username:true,
+                                avatar_url:true
+                            }
+                        }
+                    }
+                },
+                tags:{
+                    select:{
+                        id:true,
+                        name:true
+                    }
+                }
             }
         })
         if(blogs){
@@ -117,10 +179,41 @@ export const getBlogsByAuthorId = async (authorId: string) => {
             where:{
                 authorId
             },
-            include:{
-                likes:true,
-                comments:true,
-                tags:true
+            select:{
+                id:true,
+                title:true,
+                content:true,
+                published:true,
+                publishedAt:true,
+                authorId:true,
+                createdAt:true,
+                thumbnail_url:true,
+                likes:{
+                    select:{
+                        id:true,
+                        userId:true
+                    }
+                },
+                comments:{
+                    select:{
+                        id:true,
+                        content:true,
+                        userId:true,
+                        createdAt:true,
+                        user:{
+                            select:{
+                                username:true,
+                                avatar_url:true
+                            }
+                        }
+                    }
+                },
+                tags:{
+                    select:{
+                        id:true,
+                        name:true
+                    }
+                }
             }
         })
         if(blogs){
@@ -150,10 +243,41 @@ export const getBlogsByTagId = async (tagId: string)=>{
                 },
                 published: true
             },
-            include:{
-                likes:true,
-                comments:true,
-                tags:true
+            select:{
+                id:true,
+                title:true,
+                content:true,
+                published:true,
+                publishedAt:true,
+                authorId:true,
+                createdAt:true,
+                thumbnail_url:true,
+                likes:{
+                    select:{
+                        id:true,
+                        userId:true
+                    }
+                },
+                comments:{
+                    select:{
+                        id:true,
+                        content:true,
+                        userId:true,
+                        createdAt:true,
+                        user:{
+                            select:{
+                                username:true,
+                                avatar_url:true
+                            }
+                        }
+                    }
+                },
+                tags:{
+                    select:{
+                        id:true,
+                        name:true
+                    }
+                }
             }
         })
         if(blogs){
@@ -195,4 +319,91 @@ export const updateBlog = async (blogId:string, data: Partial<Blog>) => {
     }
 }
 
+export const deleteBlogById = async (blogId: string) => {
+    try{
+        const blog = await prisma.blog.delete({
+            where:{
+                id: blogId
+            }
+        })
+        if(blog){
+            return {
+                success: true
+            }
+        }else{
+            return {
+                success: false
+            }
+        }
+    }catch(e){
+        console.log("### Error in deleteBlogById: ", e);
+        return {
+            success: false
+        }
+    }
+}
+
+export const getBlogByName = async (name: string) => {
+    try{
+        const blogs = await prisma.blog.findMany({
+            where:{
+                title:{
+                    contains: name,
+                    mode: "insensitive"
+                }
+            },
+            select:{
+                id:true,
+                title:true,
+                content:true,
+                published:true,
+                publishedAt:true,
+                authorId:true,
+                createdAt:true,
+                thumbnail_url:true,
+                likes:{
+                    select:{
+                        id:true,
+                        userId:true
+                    }
+                },
+                comments:{
+                    select:{
+                        id:true,
+                        content:true,
+                        userId:true,
+                        createdAt:true,
+                        user:{
+                            select:{
+                                username:true,
+                                avatar_url:true
+                            }
+                        }
+                    }
+                },
+                tags:{
+                    select:{
+                        id:true,
+                        name:true
+                    }
+                }
+            }
+        })
+        if(blogs){
+            return {
+                success: true,
+                blogs
+            }
+        }else{
+            return {
+                success: false
+            }
+        }
+    }catch(e){
+        console.log("### Error in getBlogByName: ", e);
+        return {
+            success: false
+        }
+    }
+}
 
