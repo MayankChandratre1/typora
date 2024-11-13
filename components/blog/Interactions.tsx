@@ -8,52 +8,52 @@ import { BlogWithRelations } from '@/lib/types/blogTypes'
 import { Blog } from '@prisma/client'
 import ShareModal from '../custom_components/ShareModal'
 import { usePathname, useRouter } from 'next/navigation'
-import { addCommentOnBlog, deleteCommentOnBlog, dislikeBlogById, likeBlogById } from '@/lib/actions/interactionsActions'
+import { dislikeBlogById, likeBlogById } from '@/lib/actions/interactionsActions'
 import { useSession } from 'next-auth/react'
 import { set } from 'zod'
 import { getUserByEmail } from '@/lib/actions/userActions'
+import useAuthSession from '@/lib/hooks/users/useAuthSession'
 
 const Interactions = ({blog}:{
     blog:BlogWithRelations,
 }) => {
   const [showShareModal, setShowShareModal] = useState(false);
   const url = usePathname()
-  const session = useSession()
+  const {session} = useAuthSession()
   const [isLiked, setIsLiked] = useState(false)
   const [likeCount, setLikeCount] = useState<number>(blog.likes.length);
   const [commentCount, setCommentCount] = useState<number>(blog.comments.length);
 
 
   useEffect(()=>{
-    const userEmail = session.data?.user?.email;
-    if(!userEmail){
+    const userId = session?.user?.id;
+    if(!userId){
         return
     }
-    getUserByEmail(userEmail).then((result)=>{
-        const liked = blog.likes.find(like => like.userId === result.user?.id);
-        if(liked){
-            setIsLiked(true)
-        }
-    })
-  },[blog])
+    const liked = blog.likes.find(like => like.userId === userId);
+    if(liked){
+        setIsLiked(true)
+    }
+        
+  },[blog, session])
 
 
   
 
   const like = async () => {
     try{
-        const userEmail = session.data?.user?.email;
+        const userEmail = session?.user?.email;
         if(!userEmail){
             return
         }
         if(!isLiked){
-            await likeBlogById(blog.id, userEmail);
             setIsLiked(true)
             setLikeCount(likeCount+1)
+            await likeBlogById(blog.id, userEmail);
         }else{
-            await dislikeBlogById(blog.id, userEmail);
             setIsLiked(false)
             setLikeCount(likeCount-1)
+            await dislikeBlogById(blog.id, userEmail);
         }
     }catch(error){
         console.error("###like: \n"+ JSON.stringify(error));

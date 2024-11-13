@@ -1,12 +1,12 @@
 "use client"
+
 import ProfileCard from '@/components/profile/ProfileCard';
 import UserBlogs from '@/components/profile/UserBlogs';
 import { Button } from '@/components/ui/button';
 import { useUser } from '@/lib/hooks/users/useUser';
-import { User } from 'next-auth';
 import { signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 
 const ProfilePage = ({ params }: { 
     params: { id: string }
@@ -29,7 +29,7 @@ const ProfilePage = ({ params }: {
   }
 
   return (
-    <div className='grid grid-cols-2 h-full'>
+    <div className='grid grid-cols-1 md:grid-cols-2 h-full'>
         <div className='flex flex-col justify-center items-center'>
            <div className='flex flex-col '>
            <ProfileCard user={user} />

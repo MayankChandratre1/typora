@@ -1,18 +1,41 @@
 import { toast } from "@/hooks/use-toast";
-import { publishBlog, saveBlog } from "@/lib/actions/blogActions";
+import { getBlogById, publishBlog, saveBlog, updateBlog } from "@/lib/actions/blogActions";
 import markdownToHtml from "@/lib/markdown/markdownToHtml";
+import { get } from "http";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
+import { set } from "zod";
+import useAuthSession from "../users/useAuthSession";
+import { useRouter } from "next/navigation";
 
-const useEditor = () => {
+const useEditor = (id?:string) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [preview, setPreview] = useState(false);
   const [html, setHtml] = useState("");
-  const [blogId, setBlogId] = useState<string | undefined>();
-  const session = useSession();
+  const [blogId, setBlogId] = useState<string | undefined>(id);
+  const [notAuthor, setNotAuthor] = useState(false);
+  const {session, loading} = useAuthSession();
+  
 
   useEffect(() => {
+    if(id){
+        getBlogById(id).then((res) => {
+            setNotAuthor(false);
+            console.log(JSON.stringify(session));
+            if(res?.blogs && session?.user?.id != res?.blogs[0].authorId) {
+                setNotAuthor(true);
+                return
+            }
+            if(res && res.success && res.blogs){
+                setTitle(res.blogs[0]?.title);
+                setContent(res.blogs[0]?.content);
+                localStorage.setItem("title", res.blogs[0]?.title);
+                localStorage.setItem("content", res.blogs[0]?.content);
+            }
+        })
+        
+    }
     const title = localStorage.getItem("title");
     const content = localStorage.getItem("content");
     if (title) {
@@ -21,7 +44,11 @@ const useEditor = () => {
     if (content) {
       setContent(content);
     }
-  }, []);
+    return () => {
+      localStorage.removeItem("title");
+      localStorage.removeItem("content");
+    }
+  }, [id, session]);
 
   useEffect(() => {
     const generatePreview = async () => {
@@ -46,22 +73,24 @@ const useEditor = () => {
     textarea.selectionEnd = start + text.length;
   };
 
-  const handleBold = () => insertAtCursor("**Bold Text**");
-  const handleItalic = () => insertAtCursor("*Italic Text*");
-  const handleLink = () => insertAtCursor("[Link Text](url)");
-  const handleImage = () => insertAtCursor("![Alt Text](image-url)");
-  const handleList = () => insertAtCursor("- List item\n");
-  const handleCodeBlock = () => insertAtCursor("```\nCode Block\n```");
+  const handleBold = () => insertAtCursor("**Bold**");
+  const handleItalic = () => insertAtCursor("*Italic*");
+  const handleLink = () => insertAtCursor("[Title](url)");
+  const handleImage = () => insertAtCursor("![Alt](image-url)");
+  const handleList = () => insertAtCursor("- Item\n");
+  const handleCodeBlock = () => insertAtCursor("```\nCode\n```");
 
   const handleHeader = (level: number) => {
     const headerMarkdown = "#".repeat(level) + " ";
-    insertAtCursor(`${headerMarkdown}Header ${level}\n`);
+    insertAtCursor(`${headerMarkdown}Header${level}\n`);
   };
   const clearStorage = () => {
-    localStorage.clear();
+    localStorage.removeItem("title");
+    localStorage.removeItem("content");
     setTitle("");
     setContent("");
   };
+
   const handlePublish = async () => {
     toast({
       title: "Blog Published",
@@ -71,9 +100,11 @@ const useEditor = () => {
     try {
       if (blogId) {
         await publishBlog(blogId);
+        return blogId;
       } else {
         const blogId = await handleSaveAsDraft();
         if (blogId) await publishBlog(blogId);
+        return blogId;
       }
       clearStorage();
     } catch (error) {
@@ -84,22 +115,67 @@ const useEditor = () => {
 
   const handleSaveAsDraft = async () => {
     try {
-      if (session.data?.user?.id) {
+      if (session?.user?.id) {
         const res = await saveBlog({
           title,
           content,
-          authorId: session.data?.user?.id,
+          authorId: session?.user?.id,
         });
         if (res && res.success) {
           setBlogId(res.blogId);
           return res.blogId;
         }
       }
+      toast({
+        title: "Blog Saved",
+        description: "Your blog has been saved successfully",
+      })
+      
     } catch (error) {
       console.error(error);
     }
     console.log("Saving as Draft:", { title, content });
   };
+
+  const handleUnpublish = async () => {
+    try {
+      if (blogId) {
+        await updateBlog(blogId,{
+          published: false,
+        });
+        clearStorage();
+        toast({
+          title: "Blog Unpublished",
+          description: "Your blog has been unpublished successfully",
+        })
+      }
+     
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  const handleEditSave = async () => {
+    try {
+      if (blogId) {
+        await updateBlog(blogId,{
+          title,
+          content
+        });
+        toast({
+          title: "Blog Saved",
+          description: "Your blog has been saved successfully",
+        })
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  const handleEditPubslish = async () => {
+    await handleEditSave()
+    await handlePublish()
+  }
 
   const onChangeContent = (text: string) => {
     setContent(text);
@@ -131,6 +207,10 @@ const useEditor = () => {
     handleSaveAsDraft,
     onChangeContent,
     onChangeTitle,
+    handleUnpublish,
+    handleEditPubslish,
+    handleEditSave,
+    notAuthor
   };
 };
 

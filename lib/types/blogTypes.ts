@@ -9,6 +9,11 @@ export type BlogWithRelations = {
         id: string;
         content: string;
         userId: string;
+        user:{
+            username: string;
+            avatar_url: string;
+        },
+        createdAt: Date;
     }[],
     tags:  {
         id: string;

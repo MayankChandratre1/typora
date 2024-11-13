@@ -28,6 +28,7 @@ export default {
             if(token.sub && session.user){
                 session.user.id = token.sub
             }
+            console.log("###Session:\n"+JSON.stringify(session));
             return session
         },
         jwt: async ({token}) => {

@@ -1,12 +1,14 @@
 import { getUserById } from '@/lib/actions/userActions';
 import markdownToHtml from '@/lib/markdown/markdownToHtml';
+import { BlogWithRelations } from '@/lib/types/blogTypes';
 import { Blog } from '@prisma/client'
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
+import { Button } from '../ui/button';
 
 const BlogCard = ({blog}:{
-    blog: Blog
+    blog: BlogWithRelations
 }) => {
     const router = useRouter();
     const [author, setAuthor] = useState<string | null>(null);
@@ -21,19 +23,25 @@ const BlogCard = ({blog}:{
     const handleClick = () => {
       router.push(`/blog/${blog.id}`);
     };
+
+    
     useEffect(() => {
         
     },[])
     return (
         <div
         onClick={handleClick}
-        className="cursor-pointer bg-white dark:bg-gray-800 shadow-md rounded-lg overflow-hidden transition transform hover:scale-105 hover:shadow-lg min-w-[40%]"
+        className="cursor-pointer bg-gray-50 dark:bg-gray-800 shadow-md rounded-lg overflow-hidden transition-all transform hover:scale-105 hover:shadow-lg min-w-[40%] w-[80%] md:w-[20%]"
       >
-        <img
+       {
+        blog.thumbnail_url && (
+          <img
           src={blog.thumbnail_url}
           alt={blog.title}
-          className="w-full h-48 object-cover object-top"
+          className="w-full  object-cover object-top"
         />
+        )
+       }
         <div className="p-4">
           <h2 className="text-xl font-semibold text-gray-800 dark:text-white">
             {blog.title}
@@ -47,13 +55,19 @@ const BlogCard = ({blog}:{
                 ? `${new Date(blog.publishedAt).toLocaleDateString()} : ${author}`
                 : `${new Date(blog.createdAt).toLocaleDateString()}`}
             </span>
-            <span
-              className={`text-sm ${
-                blog.published ? 'text-green-500' : 'text-yellow-500'
-              }`}
-            >
-              {blog.published ? 'Published' : 'Draft'}
-            </span>
+           
+          </div>
+          <div className='my-2 flex flex-wrap'>
+            {
+              blog.tags.map((tag) => (
+                <Button variant={"outline"} onClick={(e)=>{
+                  e.stopPropagation();
+                  router.push(`/tag/${tag.id}`)
+                }} key={tag.id} className="text-sm bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white px-2 py-1 rounded-md mx-2 my-1">
+                  {tag.name}
+                </Button>
+              ))
+            }
           </div>
         </div>
       </div>

@@ -36,7 +36,7 @@ const ShareModal = ({ onClose, url }: { onClose: () => void, url: string }) => {
             href={`https://wa.me/?text=${encodeURIComponent(blogUrl)}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-gray-200 dark:bg-gray-800 text-white py-2 px-4 w-full rounded flex justify-center text-sm"
+            className="bg-gray-200 dark:bg-gray-800 dark:text-white py-2 px-4 w-full rounded flex justify-center text-sm"
           >
             WhatsApp
           </a>
@@ -46,7 +46,7 @@ const ShareModal = ({ onClose, url }: { onClose: () => void, url: string }) => {
             href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(blogUrl)}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-gray-200 dark:bg-gray-800 text-white py-2 px-4 w-full rounded flex justify-center text-sm"
+            className="bg-gray-200 dark:bg-gray-800 dark:text-white py-2 px-4 w-full rounded flex justify-center text-sm"
           >
             Twitter
           </a>
@@ -56,7 +56,7 @@ const ShareModal = ({ onClose, url }: { onClose: () => void, url: string }) => {
             href={`https://www.instagram.com/?url=${encodeURIComponent(blogUrl)}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-gray-200 dark:bg-gray-800 text-white py-2 px-4 w-full rounded flex justify-center text-sm"
+            className="bg-gray-200 dark:bg-gray-800 dark:text-white py-2 px-4 w-full rounded flex justify-center text-sm"
           >
             Instagram
           </a>

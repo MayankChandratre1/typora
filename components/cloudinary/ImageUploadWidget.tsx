@@ -36,7 +36,7 @@ const ImageUploadWidget = ({setUrl}:{
       open();
     }
     return (
-      <Button variant={"gradient_black"}
+      <Button variant={"secondary"}
        onClick={handleOnClick}>
         Upload an Image
       </Button>

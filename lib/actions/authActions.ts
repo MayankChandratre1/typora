@@ -1,5 +1,5 @@
 "use server"
-import { signIn } from "@/auth";
+import { auth, signIn } from "@/auth";
 import { SigninInput, SignupInput } from "../types/authTypes";
 import { getUserByEmail } from "./userActions";
 import { prisma } from "../db/prisma";
@@ -57,3 +57,6 @@ export const SignUp = async (userInfo:SignupInput) => {
         throw error
     }
 }
+
+
+
