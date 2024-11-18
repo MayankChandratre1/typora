@@ -77,10 +77,8 @@ The backend is managed by Next.js server actions, with the following main action
     npm install
     ```
 3. **Set up environment variables: Create a .env file and add your database URL, Cloudinary credentials, and other environment variables**:
-    ```
-    DATABASE_URL=your_database_url
-    CLOUDINARY_URL=your_cloudinary_url
-    JWT_SECRET=your_jwt_secret
+    ```bash
+    cp .env.example .env
     ```
  4. **Run database migrations**:
     ```bash
