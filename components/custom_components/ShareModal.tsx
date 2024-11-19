@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Button } from '../ui/button';
-import { BASE_APP_URL } from '@/lib/util/defaults';
 
 const ShareModal = ({ onClose, url }: { onClose: () => void, url: string }) => {
   const [copied, setCopied] = useState(false);
