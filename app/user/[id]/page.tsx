@@ -2,7 +2,6 @@
 
 import ProfileCard from '@/components/profile/ProfileCard';
 import UserBlogs from '@/components/profile/UserBlogs';
-import { Button } from '@/components/ui/button';
 import { useUser } from '@/lib/hooks/users/useUser';
 import { signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
