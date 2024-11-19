@@ -32,15 +32,14 @@ const ProfilePage = ({ params }: {
     <div className='grid grid-cols-1 md:grid-cols-2 h-full'>
         <div className='flex flex-col justify-center items-center'>
            <div className='flex flex-col '>
-           <ProfileCard isCurrentUser user={user} />
+           <ProfileCard user={user} />
             <div className='mt-4 flex gap-2'>
-              <Button onClick={signout} className='flex-1' variant={"secondary"}>Signout</Button>
-              <Button className='flex-1' variant={"destructive"}>Delete Account</Button>
+              
             </div>
            </div>
         </div>
         <div>
-           <UserBlogs isMyProfile userId={userId} />
+           <UserBlogs userId={userId} />
 
         </div>
     </div>

@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import React, { useState } from "react";
 import useEditor from "@/lib/hooks/blog/useEditor";
 import MetadataModal from "@/components/blog/MetadataModal";
+import { useRouter } from "next/navigation";
 
 export default function CreateBlogPage() {
   const {
@@ -28,7 +29,7 @@ export default function CreateBlogPage() {
     handleHeader,
   } = useEditor();
   const [isPublishing, setIsPublishing] = useState(false);
-
+  const router= useRouter()
   return (
     <>
       <div className="min-h-screen py-10">
@@ -98,7 +99,10 @@ export default function CreateBlogPage() {
             <Button onClick={changeToPreview} variant={"outline"}>
               Preview &rarr;
             </Button>
-            <Button onClick={handleSaveAsDraft} variant={"outline"}>
+            <Button onClick={async () => {
+              await handleSaveAsDraft()
+              router.push("/home")
+            }} variant={"outline"}>
               Save as Draft
             </Button>
             <Button

@@ -7,8 +7,9 @@ import { Textarea } from '../ui/textarea'
 import ImageUploadWidget from '../cloudinary/ImageUploadWidget'
 import { updateUserById } from '@/lib/actions/userActions'
 
-const ProfileCard = ({user}:{
-    user: User
+const ProfileCard = ({user, isCurrentUser}:{
+    user: User,
+    isCurrentUser?: boolean
 }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [userData, setUserData] = useState<User>(user);
@@ -81,14 +82,16 @@ const ProfileCard = ({user}:{
         /> : <p className='text-sm text-gray-500 border-none text-center shadow-none'>{userData.about}</p>
     }
 
-    <Button onClick={()=>{
-        if(isEditing){
-            onSave()
-        }
-        setIsEditing(!isEditing)
-    }} variant={'link'} className='text-xs italic font-light text-gray-500 hover:text-gray-200'>
-        {isEditing ? 'Save' : 'Edit'}
-    </Button>
+    {
+        isCurrentUser && <Button onClick={()=>{
+            if(isEditing){
+                onSave()
+            }
+            setIsEditing(!isEditing)
+        }} variant={'link'} className='text-xs italic font-light text-gray-500 hover:text-gray-200'>
+            {isEditing ? 'Save' : 'Edit'}
+        </Button>
+    }
 </div>
   )
 }

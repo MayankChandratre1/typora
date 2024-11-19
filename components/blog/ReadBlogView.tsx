@@ -31,15 +31,15 @@ const ReadBlogView = ({ html, blog }: { html: string, blog:BlogWithRelations }) 
 
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 dark:bg-black">
+    <div className="grid grid-cols-1 lg:grid-cols-2 ">
       <div
-        className="prose prose-sm dark:prose-dark md:prose-2xl overflow-scroll p-10 dark:bg-black"
+        className="prose prose-sm dark:prose-dark md:prose-2xl overflow-scroll p-10 "
         style={{
           scrollbarColor: "transparent transparent",
         }}
         dangerouslySetInnerHTML={{ __html: html || "" }}
       ></div>
-      <div className="max-lg:border-t-2 lg:border-l-2 overflow-y-scroll px-3 dark:bg-black h-full" style={{
+      <div className="max-lg:border-t-2 lg:border-l-2 overflow-y-scroll px-3  h-full" style={{
         scrollbarColor: "transparent transparent",
       }}>
         <AuthorCard authorId={blog.authorId} />
