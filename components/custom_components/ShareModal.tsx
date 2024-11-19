@@ -4,7 +4,7 @@ import { BASE_APP_URL } from '@/lib/util/defaults';
 
 const ShareModal = ({ onClose, url }: { onClose: () => void, url: string }) => {
   const [copied, setCopied] = useState(false);
-  const blogUrl = BASE_APP_URL  +url;
+  const blogUrl = process.env.BASE_APP_URL +url;
 
   // Function to copy the blog URL to clipboard
   const copyToClipboard = () => {
